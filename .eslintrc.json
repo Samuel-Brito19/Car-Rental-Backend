@@ -13,6 +13,12 @@
     ],
     "rules": {
         "tabWidth": 2,
+        "@typescript-eslint/explicit-function-return-type": [
+            "error",
+            {
+            "allowExpressions": true
+            }
+            ],
         
         "singleQuote": true,
         "jsxSingleQuote": true
