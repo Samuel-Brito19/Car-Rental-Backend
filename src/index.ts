@@ -1,5 +1,6 @@
 import Fastify from 'fastify'
 import { prisma } from './database'
+
 const fastify = Fastify({
   logger: true
 })
