@@ -31,6 +31,7 @@ model Car {
   name String
   model String
   doors Int
+  color String
   type String
   carChange String
   hasAir Boolean
