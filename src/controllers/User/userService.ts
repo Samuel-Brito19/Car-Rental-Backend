@@ -1,9 +1,16 @@
+import { hash } from "bcrypt";
 import { prisma } from "../../database";
 import { createUserSchema } from "./userSchema";
 
 
 export async function createUser(params:createUserSchema) {
+    const {password} = params
+
+    const hashPassword = await hash(password,8)
+    
     const user = await prisma.user.create({
-        data: params
+        data: {...params, password: hashPassword}
     })
+
+    return user
 }
