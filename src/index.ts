@@ -1,13 +1,25 @@
-import Fastify from 'fastify'
+import Fastify, { FastifyReply, FastifyRequest } from 'fastify'
 import { prisma } from './database'
 import userRoutes from './controllers/User/userRoute'
 import { userSchemas } from './controllers/User/userSchema'
+import fjwt from '@fastify/jwt'
+
 
 const fastify = Fastify({
   logger: true
 })
 
-fastify.get('/', async function handler (request, reply) {
+fastify.register(fjwt, {secret:`${process.env.SECRET_JWT}`})
+
+fastify.decorate('authenticate', async function (request: FastifyRequest, reply: FastifyReply) {
+  try {
+    await request.jwtVerify()
+  } catch (error) {
+    reply.send(error)
+  }
+})
+
+fastify.get('/check', async function handler (request, reply) {
     return { hello: 'world' }
   })
   

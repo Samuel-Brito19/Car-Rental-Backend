@@ -1,5 +1,5 @@
-import { FastifyInstance } from "fastify";
-import createUserHandler from "./userController";
+import fastify, { FastifyInstance } from "fastify";
+import registerUserHandler from "./userController";
 import { $ref } from "./userSchema";
 
 async function userRoutes (server: FastifyInstance) {
@@ -9,8 +9,9 @@ async function userRoutes (server: FastifyInstance) {
             response: {
                 200: $ref('createUserNoPassword')
             }
-        }
-    }, createUserHandler)
+        }, 
+        
+    }, registerUserHandler)
 }
 
 export default userRoutes
