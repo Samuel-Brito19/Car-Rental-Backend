@@ -14,3 +14,10 @@ export async function createUser(params:createUserSchema) {
 
     return user
 }
+
+export async function findUserEmail(email: string) {
+
+    return prisma.user.findUnique({where: {
+        email,
+    }})
+}

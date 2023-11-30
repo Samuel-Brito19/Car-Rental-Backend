@@ -5,7 +5,7 @@ import { userSchemas } from './controllers/User/userSchema'
 import fjwt from '@fastify/jwt'
 
 
-const fastify = Fastify({
+export const fastify = Fastify({
   logger: true
 })
 
