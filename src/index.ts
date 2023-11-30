@@ -1,6 +1,7 @@
 import Fastify from 'fastify'
 import { prisma } from './database'
 import userRoutes from './controllers/User/userRoute'
+import { userSchemas } from './controllers/User/userSchema'
 
 const fastify = Fastify({
   logger: true
@@ -12,6 +13,10 @@ fastify.get('/', async function handler (request, reply) {
   
 
   const start = async () => {
+
+    for(const schema of userSchemas) {
+      fastify.addSchema(schema)
+    }
 
     fastify.register(userRoutes, {prefix: '/users'})
     try {

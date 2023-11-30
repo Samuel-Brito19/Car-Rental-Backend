@@ -12,7 +12,6 @@ const userCore = {
 
 const createUserSchema = z.object({
     ...userCore,
-    id: z.number(),
     password: z.string({
         required_error: 'Password is required',
         invalid_type_error: 'Password must be a string'
@@ -20,6 +19,7 @@ const createUserSchema = z.object({
 })
 
 const createUserNoPassword = z.object({
+    id: z.number(),
     ...userCore,
 
 })
