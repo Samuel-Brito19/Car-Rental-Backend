@@ -1,10 +1,10 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { createUser, findUserEmail } from "./userService";
+import { createUser, findUserEmail, findUsers } from "./userService";
 import { createUserSchema, loginInput } from "./userSchema";
 import { compare } from "bcrypt";
 import { fastify } from "../..";
 
-async function registerUserHandler(request: FastifyRequest<{
+export async function registerUserHandler(request: FastifyRequest<{
     Body: createUserSchema
 }>, 
     reply: FastifyReply) {
@@ -48,8 +48,16 @@ export async function loginHandler(request: FastifyRequest<{
             expiresIn: '7d'
         })}
     }
+    return reply.code(401).send({
+        message: "Invalid email or password!"
+    })
 
     
 }
 
-export default registerUserHandler
+export async function getUsersHandler() {
+    const users = await findUsers()
+
+    return users
+}
+
