@@ -5,6 +5,13 @@ import { userSchemas } from './controllers/User/userSchema'
 import fjwt from '@fastify/jwt'
 
 
+declare module "fastify" {
+  export interface FastifyInstance {
+    authenticate: any;
+  }
+}
+
+
 export const fastify = Fastify({
   logger: true
 })

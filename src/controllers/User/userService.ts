@@ -23,5 +23,11 @@ export async function findUserEmail(email: string) {
 }
 
 export async function findUsers() {
-    return await prisma.user.findMany()
+    return await prisma.user.findMany({
+        select: {
+            email: true,
+            id: true,
+            name: true
+        }
+    })
 }
