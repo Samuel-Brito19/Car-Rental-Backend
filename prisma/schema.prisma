@@ -20,11 +20,13 @@ model User {
 
 model Rent {
   id Int @id @default(autoincrement())
-  local String
+  locals Locals[]
   locatedAt DateTime 
   devolutionTime DateTime 
   user User @relation(fields: [userId], references: [id])
   userId Int
+  rentedCar Car @relation(fields: [carId], references: [id])
+  carId Int @unique
 }
 
 model Car {
@@ -36,4 +38,19 @@ model Car {
   type String
   carChange String
   hasAir Boolean
+  rent Rent?
+}
+
+model Locals {
+  id Int @id @default(autoincrement())
+  aeroport1 String
+  aeroport2 String
+  aeroport3 String
+  busStation String
+  busStation2 String
+  busStation3 String
+  busStation4 String
+  chosedLocal Rent @relation(fields: [localId], references: [id])
+  localId Int
+
 }
