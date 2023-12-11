@@ -1,6 +1,7 @@
 import { prisma } from "../../database";
+import { carCore } from "./carSchema";
 
-export async function findCars() {
+export async function getCars() {
 
     return await prisma.car.findMany({
         select: {
@@ -14,4 +15,13 @@ export async function findCars() {
         link: true
         }
     })
+}
+
+export async function createCar(params: carCore) {
+
+    const car = await prisma.car.create({
+        data: {...params}
+    })
+
+    return car
 }
