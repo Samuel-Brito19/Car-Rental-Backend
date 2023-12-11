@@ -38,6 +38,7 @@ model Car {
   type String
   carChange String
   hasAir Boolean
+  link String
   rent Rent?
 }
 
