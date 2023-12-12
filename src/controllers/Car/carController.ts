@@ -20,6 +20,7 @@ export async function carRegister(request: FastifyRequest<{
     }
 
 export async function findCars() {
+    
     const cars = await getCars()
 
     return cars
