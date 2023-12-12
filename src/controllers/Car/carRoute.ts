@@ -6,21 +6,11 @@ import { createCar } from "./carService";
 async function carRoutes(server:FastifyInstance) {
     
     server.get('/cars', {
-        schema: {
-            body: $ref('carCore'),
-            response: {
-                200: $ref('carCore')
-            }
-        }
+        preHandler: [server.authenticate]
     }, findCars)
 
     server.post('/cars', {
-        schema: {
-            body: $ref('carCore'),
-            response: {
-                200: $ref('carCore')
-            }
-        }
+        preHandler: [server.authenticate]
     }, carRegister)
 }
 
