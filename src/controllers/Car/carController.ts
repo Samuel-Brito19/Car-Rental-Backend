@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { carCore } from "./carSchema";
-import { createCar, getCars } from "./carService";
+import { carCore, responseCar } from "./carSchema";
+import { createCar, deleteCar, getCars } from "./carService";
 
 export async function carRegister(request: FastifyRequest<{
     Body: carCore}>,
@@ -24,4 +24,14 @@ export async function findCars() {
     const cars = await getCars()
 
     return cars
+}
+
+export async function delCar(request: FastifyRequest<{Params: responseCar}>, reply: FastifyReply) {
+
+    const {id} = request.params
+
+    const dCar = deleteCar(id)
+
+    return dCar
+
 }

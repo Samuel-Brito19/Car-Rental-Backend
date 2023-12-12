@@ -1,8 +1,7 @@
 import {z} from 'zod'
 import { buildJsonSchemas } from 'fastify-zod'
 
-const carCore = z.object({
-    id: z.number(),
+const carCore = {
     name: z.string(),
     model: z.string(),
     doors: z.number(),
@@ -11,11 +10,24 @@ const carCore = z.object({
     carChange: z.string(),
     hasAir: z.boolean(),
     link: z.string()
+}
+
+const createCarSchema = z.object({
+    ...carCore
+})
+
+const responseCreateCarSchema = z.object({
+    id: z.number(),
+    ...carCore
 })
 
 
-export type carCore = z.infer<typeof carCore>
+export type carCore = z.infer<typeof createCarSchema>
+
+export type responseCar = z.infer<typeof responseCreateCarSchema>
 
 export const {schemas: carSchema, $ref} = buildJsonSchemas({
-    carCore
+    createCarSchema,
+    responseCreateCarSchema
+
 })

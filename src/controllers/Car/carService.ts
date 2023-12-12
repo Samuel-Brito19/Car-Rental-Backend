@@ -28,11 +28,12 @@ export async function createCar(params: carCore) {
     return car
 }
 
-export async function deleteCar(params: carCore) {
+export async function deleteCar(id : number) {
 
-    const id = params.id
 
     const deletedCar = await prisma.car.delete({
         where: {id}
     })
+
+    return deletedCar
 }
