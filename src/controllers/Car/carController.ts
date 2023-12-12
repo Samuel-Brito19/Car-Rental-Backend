@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { carCore, responseCar } from "./carSchema";
-import { createCar, deleteCar, getCars } from "./carService";
+import { createCar, getCars } from "./carService";
 
 export async function carRegister(request: FastifyRequest<{
     Body: carCore}>,
@@ -26,12 +26,12 @@ export async function findCars() {
     return cars
 }
 
-export async function delCar(request: FastifyRequest<{Params: responseCar}>, reply: FastifyReply) {
+// export async function delCar(request: FastifyRequest<{Params: responseCar}>, reply: FastifyReply) {
 
-    const {id} = request.params
+//     const {id} = request.params
 
-    const dCar = deleteCar(id)
+//     const dCar = deleteCar(id)
 
-    return dCar
+//     return dCar
 
-}
+// }

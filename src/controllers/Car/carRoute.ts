@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { $ref } from "./carSchema";
-import { carRegister, delCar, findCars } from "./carController";
+import { carRegister, findCars } from "./carController";
 
 async function carRoutes(server:FastifyInstance) {
     
@@ -23,12 +23,14 @@ async function carRoutes(server:FastifyInstance) {
         }
     }, carRegister)
 
-    server.delete('/cars/{id}', {
-        preHandler: [server.authenticate],
-        schema: {
-            response: {
-                200: $ref('responseCreateCarSchema')
-            }
-        }
-    }, delCar)
+    // server.delete('/cars{id}', {
+    //     preHandler: [server.authenticate],
+    //     schema: {
+    //         response: {
+    //             200: $ref('responseCreateCarSchema')
+    //         }
+    //     }
+    // }, delCar)
 }
+
+export default carRoutes

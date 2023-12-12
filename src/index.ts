@@ -1,48 +1,53 @@
 import Fastify, { FastifyReply, FastifyRequest } from 'fastify'
-import { prisma } from './database'
 import userRoutes from './controllers/User/userRoute'
 import { userSchemas } from './controllers/User/userSchema'
-import fjwt from '@fastify/jwt'
+import fjwt, { JWT } from '@fastify/jwt'
+import { carSchema } from './controllers/Car/carSchema'
+import carRoutes from './controllers/Car/carRoute'
 
 
 declare module "fastify" {
+  interface FastifyRequest{
+    jwt: JWT
+  }
   export interface FastifyInstance {
     authenticate: any;
   }
 }
 
+function buildServer() {
 
-export const fastify = Fastify({
-  logger: true
-})
-
-fastify.register(fjwt, {secret:`${process.env.SECRET_JWT}`})
-
-fastify.decorate('authenticate', async function (request: FastifyRequest, reply: FastifyReply) {
-  try {
-    await request.jwtVerify()
-  } catch (error) {
-    reply.send(error)
-  }
-})
-
-fastify.get('/check', async function handler (request, reply) {
-    return { hello: 'world' }
-  })
+  const fastify = Fastify()
   
 
-  const start = async () => {
+  fastify.register(fjwt, {secret:`${process.env.SECRET_JWT}`})
 
-    for(const schema of userSchemas) {
-      fastify.addSchema(schema)
-    }
-
-    fastify.register(userRoutes, {prefix: '/users'})
+  fastify.decorate('authenticate', async function (request: FastifyRequest, reply: FastifyReply) {
     try {
-      await fastify.listen({ port: 3000 })
-    } catch (err) {
-      fastify.log.error(err)
-      process.exit(1)
+      await request.jwtVerify()
+    } catch (error) {
+      reply.send(error)
     }
+  })
+  
+  fastify.get('/check', async function handler (request, reply) {
+      return { hello: 'world' }
+    })
+
+  fastify.addHook("preHandler", (req, res, next) => {
+    req.jwt = fastify.jwt
+    return next()
+  })
+
+  for(const schema of [...userSchemas, ...carSchema]) {
+    fastify.addSchema(schema)
   }
-  start()
+
+  fastify.register(userRoutes, {prefix: '/users'})
+  fastify.register(carRoutes, {prefix: '/cars'})
+
+  return fastify
+
+}
+
+export default buildServer

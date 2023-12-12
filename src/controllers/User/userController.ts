@@ -1,8 +1,7 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyReply, FastifyRequest, fastify } from "fastify";
 import { createUser, findUserEmail, findUsers } from "./userService";
 import { createUserSchema, loginInput } from "./userSchema";
 import { compare } from "bcrypt";
-import { fastify } from "../..";
 
 export async function registerUserHandler(request: FastifyRequest<{
     Body: createUserSchema
@@ -42,7 +41,7 @@ export async function loginHandler(request: FastifyRequest<{
     }
 
     if(await validPassword) {
-        return {accessToken: fastify.jwt.sign({
+        return {accessToken: request.jwt.sign({
             id: user?.id
         },{
             expiresIn: '7d'
