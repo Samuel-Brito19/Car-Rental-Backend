@@ -1,22 +1,45 @@
-import { FastifyReply, FastifyRequest } from "fastify";
 import { prisma } from "../../database";
 import { carCore } from "./carSchema";
 
 export async function getCars() {
+    
+    const date = new Date()
 
-    return await prisma.car.findMany({
-        select: {
-        id: true,
-        name: true,
-        model: true,
-        doors: true,
-        color: true,
-        type: true,
-        carChange: true,
-        hasAir: true,
-        link: true
+    const today = date.getDate()
+
+    const todayString = `${today}`
+
+    const cars = await prisma.car.findMany({
+        where: {
+            rent: {
+                NOT: {
+                    locatedAt: {
+                        lte: todayString
+                    },
+                    devolutionTime: {
+                        gte: todayString
+                    }
+                }
+            }
         }
     })
+
+    return cars
+    // return await prisma.car.findMany({
+    //     select: {
+    //     id: true,
+    //     name: true,
+    //     model: true,
+    //     doors: true,
+    //     color: true,
+    //     type: true,
+    //     carChange: true,
+    //     hasAir: true,
+    //     link: true
+    //     }
+    // })
+
+
 }
 
 export async function createCar(params: carCore) {
@@ -26,14 +49,4 @@ export async function createCar(params: carCore) {
     })
 
     return car
-}
-
-export async function deleteCar(id : number) {
-
-
-    const deletedCar = await prisma.car.delete({
-        where: {id}
-    })
-
-    return deletedCar
 }

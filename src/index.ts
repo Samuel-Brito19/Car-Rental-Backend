@@ -17,7 +17,9 @@ declare module "fastify" {
 
 function buildServer() {
 
-  const fastify = Fastify()
+  const fastify = Fastify({
+    logger: true
+  })
   
 
   fastify.register(fjwt, {secret:`${process.env.SECRET_JWT}`})

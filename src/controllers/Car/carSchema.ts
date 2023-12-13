@@ -27,7 +27,6 @@ export type carCore = z.infer<typeof createCarSchema>
 export type responseCar = z.infer<typeof responseCreateCarSchema>
 
 export const {schemas: carSchema, $ref} = buildJsonSchemas({
-    createCarSchema,
-    responseCreateCarSchema
-
-})
+    createCarSchema, 
+    responseCreateCarSchema, 
+}, { $id: "MySchema" })
