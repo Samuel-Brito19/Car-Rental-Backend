@@ -4,7 +4,7 @@ import { createRentSchema } from "./rentSchema"
 const today = new Date("December 17, 1995 03:24:00")
 
 export async function rentAvailableCars() {
-    const cars = prisma.rent.findMany({
+    const rents = prisma.rent.findMany({
         select: {
                 id: true,
                 locatedAt: true,
@@ -24,6 +24,24 @@ export async function rentAvailableCars() {
         }
     })
 
-    return cars
+    return rents
 }
 
+export async function createRent(params: createRentSchema) {
+    
+    const {userId, ...rentData} = params
+
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId
+        }
+    })
+    
+    const newRent = await prisma.rent.create({
+        data: {
+            ...rentData,
+            userId: user!.id
+        }
+    })
+    return newRent
+}
