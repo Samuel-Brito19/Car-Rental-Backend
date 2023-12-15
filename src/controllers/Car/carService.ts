@@ -3,21 +3,31 @@ import { carCore } from "./carSchema";
 
 export async function getCars() {
     
-    const date = new Date()
 
-    const today = date.getDate()
+    const today = new Date("December 17, 1995 03:24:00")
+    
 
-    const todayString = `${today}`
 
     const cars = await prisma.car.findMany({
+        select: {
+                id: true,
+                name: true,
+                model: true,
+                doors: true,
+                color: true,
+                type: true,
+                carChange: true,
+                hasAir: true,
+                link: true
+                },
         where: {
             rent: {
                 NOT: {
                     locatedAt: {
-                        lte: todayString
+                        lte: today
                     },
                     devolutionTime: {
-                        gte: todayString
+                        gte: today
                     }
                 }
             }
