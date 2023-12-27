@@ -1,30 +1,29 @@
 import { prisma } from '../../database'
 import { createRentSchema } from './rentSchema'
 
-const today = new Date('December 17, 1995 03:24:00')
-
-export async function rentAvailableCars() {
-  const rents = prisma.rent.findMany({
-    select: {
-      id: true,
-      locatedAt: true,
-      devolutionTime: true,
-      userId: true,
-      carId: true,
-    },
+export async function getAvailableCarsInInterval(since: Date, until: Date) {
+  const cars = prisma.car.findMany({
     where: {
-      NOT: {
-        locatedAt: {
-          lte: today,
-        },
-        devolutionTime: {
-          gte: today,
+      rent: {
+        NOT: {
+          AND: [
+            {
+              locatedAt: {
+                lte: since,
+              },
+            },
+            {
+              devolutionTime: {
+                gte: until,
+              },
+            },
+          ],
         },
       },
     },
   })
 
-  return rents
+  return cars
 }
 
 export async function createRent(params: createRentSchema) {
