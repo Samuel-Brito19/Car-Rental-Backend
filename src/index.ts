@@ -4,6 +4,8 @@ import { userSchemas } from './controllers/User/userSchema'
 import fjwt, { JWT } from '@fastify/jwt'
 import { carSchema } from './controllers/Car/carSchema'
 import carRoutes from './controllers/Car/carRoute'
+import { rentSchemas } from './controllers/RentCar/rentSchema'
+import rentRoutes from './controllers/RentCar/rentRoute'
 
 
 declare module "fastify" {
@@ -41,12 +43,13 @@ function buildServer() {
     return next()
   })
 
-  for(const schema of [...userSchemas, ...carSchema]) {
+  for(const schema of [...userSchemas, ...carSchema, ...rentSchemas]) {
     fastify.addSchema(schema)
   }
 
   fastify.register(userRoutes, {prefix: '/users'})
   fastify.register(carRoutes, {prefix: '/cars'})
+  fastify.register(rentRoutes, {prefix: '/rents'})
 
   return fastify
 

@@ -14,13 +14,13 @@ export async function carRegister(request: FastifyRequest<{
             return reply.code(200).send(car)
         } catch (error) {
             console.log(error)
-
+            
             return reply.code(500).send(error)
         }
     }
 
 export async function findCars() {
-    
+
         const cars = await getCars()
 
         return cars
