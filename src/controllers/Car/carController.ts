@@ -21,9 +21,12 @@ export async function carRegister(request: FastifyRequest<{
 
 export async function findCars() {
     
-    const cars = await getCars()
+        const cars = await getCars()
 
-    return cars
+        return cars
+    
+    
+    
 }
 
 // export async function delCar(request: FastifyRequest<{Params: responseCar}>, reply: FastifyReply) {
