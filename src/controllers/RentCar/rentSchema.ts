@@ -23,4 +23,4 @@ export type responseRentSchema = z.infer<typeof responseRent>
 export const {schemas: rentSchemas, $ref} = buildJsonSchemas({
     createRent,
     responseRent
-})
+}, { $id: "MySchema" })

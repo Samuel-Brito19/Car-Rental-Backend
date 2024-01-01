@@ -3,12 +3,12 @@ import { createNewRent, findAvailableCars } from "./rentController";
 import { $ref } from "./rentSchema";
 
 async function rentRoutes(server:FastifyInstance) {
-    server.get('/', {
+    server.get('/available', {
         preHandler: [server.authenticate],
         schema: {
             querystring: {
-                locatedAt: {type: 'date'},
-                devolutionTime: {type: 'date'}
+                locatedAt: {type: 'string'},
+                devolutionTime: {type: 'string'}
             }
         }
     },findAvailableCars)

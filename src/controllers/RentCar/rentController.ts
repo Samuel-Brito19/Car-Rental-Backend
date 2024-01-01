@@ -8,12 +8,16 @@ export async function findAvailableCars(request: FastifyRequest<{Querystring: cr
 
     try {
 
+        console.log(locatedAt, devolutionTime)
+
         const cars = await getAvailableCarsInInterval(locatedAt, devolutionTime)
 
         return cars
+
         
     } catch (error) {
         console.log(error)
+        console.log('jsjsjdjsdjfdfd')
 
         return reply.code(500).send(error)
     }

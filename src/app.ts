@@ -9,7 +9,7 @@ async function main() {
 
         console.log('Server ready at http://localhost:3000')
     } catch (error) {
-        console.log('oi')
+        console.log(error)
         process.exit(1)
     }
 }
