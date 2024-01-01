@@ -17,7 +17,7 @@ export async function findAvailableCars(request: FastifyRequest<{Querystring: cr
         
     } catch (error) {
         console.log(error)
-        console.log('jsjsjdjsdjfdfd')
+        console.log('test')
 
         return reply.code(500).send(error)
     }
