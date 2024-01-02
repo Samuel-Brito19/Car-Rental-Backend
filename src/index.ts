@@ -49,7 +49,7 @@ function buildServer() {
 
   fastify.register(userRoutes, {prefix: '/users'})
   fastify.register(carRoutes, {prefix: '/cars'})
-  fastify.register(rentRoutes, {prefix: '/rents'})
+  fastify.register(rentRoutes, {prefix: '/'})
 
   return fastify
 

@@ -13,7 +13,7 @@ async function rentRoutes(server:FastifyInstance) {
         }
     },findAvailableCars)
 
-    server.post('/', {
+    server.post('/users/rent', {
         preHandler: [server.authenticate],
         schema: {
             body: $ref('createRent'),
