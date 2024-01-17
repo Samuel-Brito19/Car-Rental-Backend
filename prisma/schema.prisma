@@ -11,47 +11,46 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  name String
-  email String @unique
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
   password String
-  rent Rent[]
+  rents    Rent[]
 }
 
 model Rent {
-  id Int @id @default(autoincrement())
-  locals Locals[]
-  locatedAt DateTime 
-  devolutionTime DateTime 
-  user User @relation(fields: [userId], references: [id])
-  userId Int
-  rentedCar Car @relation(fields: [carId], references: [id])
-  carId Int @unique
+  id             Int      @id @default(autoincrement())
+  locals         Locals[]
+  locatedAt      DateTime
+  devolutionTime DateTime
+  user           User     @relation(fields: [userId], references: [id])
+  userId         Int
+  rentedCar      Car      @relation(fields: [carId], references: [id])
+  carId          Int
 }
 
 model Car {
-  id Int @id @default(autoincrement())
-  name String
-  model String
-  doors Int
-  color String
-  type String
+  id        Int     @id @default(autoincrement())
+  name      String
+  model     String
+  doors     Int
+  color     String
+  type      String
   carChange String
-  hasAir Boolean
-  link String
-  rent Rent?
+  hasAir    Boolean
+  link      String
+  rents     Rent[]
 }
 
 model Locals {
-  id Int @id @default(autoincrement())
-  aeroport1 String
-  aeroport2 String
-  aeroport3 String
-  busStation String
+  id          Int    @id @default(autoincrement())
+  aeroport1   String
+  aeroport2   String
+  aeroport3   String
+  busStation  String
   busStation2 String
   busStation3 String
   busStation4 String
-  chosedLocal Rent @relation(fields: [localId], references: [id])
-  localId Int
-
+  chosedLocal Rent   @relation(fields: [localId], references: [id])
+  localId     Int
 }

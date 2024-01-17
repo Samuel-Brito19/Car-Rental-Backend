@@ -6,21 +6,21 @@ export async function getAvailableCarsInInterval(since: Date, until: Date) {
     const cars = prisma.car.findMany({
         
         where: {
-            rent: {
-                NOT: {
-                    AND: [
+            rents: {
+                every: {
+                    OR: [
                         {
                             locatedAt: {
-                                lte: since
+                                gt: until,
                             },
                         },
                         {
                             devolutionTime: {
-                                gte: until
-                            }
-                        }
-                    ]
-                }
+                                lt: since,
+                            },
+                        },
+                    ],
+                },
             }
         }
     })
@@ -49,6 +49,7 @@ export async function createRent(params: createRentSchema) {
     })
 
     if(!findCar) {
+        console.log(carId)
         throw new Error('Car not found')
     }
     
