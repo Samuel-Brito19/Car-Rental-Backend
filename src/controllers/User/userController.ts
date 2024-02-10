@@ -13,7 +13,11 @@ export async function registerUserHandler(request: FastifyRequest<{
     try {
         const user = await createUser(body)
 
-        return reply.code(200).send(user)
+        return reply.code(200).send({
+            id: user.id,
+            name: user.name,
+            email: user.email
+        })
     } catch (error) {
         console.log(error)
         return reply.code(500).send(error)
