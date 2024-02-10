@@ -1,5 +1,6 @@
 import Fastify, { FastifyReply, FastifyRequest } from 'fastify'
 import userRoutes from './controllers/User/userRoute'
+import cors from '@fastify/cors'
 import { userSchemas } from './controllers/User/userSchema'
 import fjwt, { JWT } from '@fastify/jwt'
 import { carSchema } from './controllers/Car/carSchema'
@@ -23,6 +24,9 @@ function buildServer() {
     logger: true
   })
   
+  fastify.register(cors, {
+    origin: '*',
+  })
 
   fastify.register(fjwt, {secret:`${process.env.SECRET_JWT}`})
 
