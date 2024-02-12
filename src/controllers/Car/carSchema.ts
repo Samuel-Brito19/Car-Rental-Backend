@@ -8,7 +8,6 @@ const carCore = {
     color: z.string(),
     type: z.string(),
     carChange: z.string(),
-    hasAir: z.boolean(),
     link: z.string()
 }
 

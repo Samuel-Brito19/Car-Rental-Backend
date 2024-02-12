@@ -13,7 +13,6 @@ export async function getCars() {
             color: true,
             type: true,
             carChange: true,
-            hasAir: true,
             link: true
         }
     })

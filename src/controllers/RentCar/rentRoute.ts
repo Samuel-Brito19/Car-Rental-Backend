@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { createNewRent, findAvailableCars } from "./rentController";
+import { createNewRent, findAvailableCars, getRents } from "./rentController";
 import { $ref } from "./rentSchema";
 
 async function rentRoutes(server:FastifyInstance) {
@@ -22,6 +22,16 @@ async function rentRoutes(server:FastifyInstance) {
             }
         }
     }, createNewRent)
+
+    server.get('/users/:id/rent', {
+        preHandler: [server.authenticate],
+        // schema: {
+        //     body: $ref('createRent'),
+        //     response: {
+        //         200: $ref('responseRent')
+        //     }
+        // }
+    }, getRents)
 }
 
 export default rentRoutes
