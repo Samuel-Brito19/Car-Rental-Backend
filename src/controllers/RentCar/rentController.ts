@@ -41,12 +41,12 @@ export async function createNewRent(request: FastifyRequest<{Body: createRentSch
 
 export async function getRents(request: FastifyRequest<{Params: createRentSchema}>, reply: FastifyReply) {
     
-    const userId = request.params.userId
+    const {userId} = request.params
 
     try {
-        const carRent = await getUserRents(userId)
+        const userRent = await getUserRents(userId)
 
-        return reply.code(200).send(carRent)
+        return reply.code(200).send(userRent)
     } catch (error) {
         console.log(error)
             

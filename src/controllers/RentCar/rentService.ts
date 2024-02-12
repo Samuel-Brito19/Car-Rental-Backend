@@ -76,20 +76,10 @@ export async function getUserRents(id : number) {
     
     const paramsId = id
 
-    // const userFound = await prisma.user.findUnique({
-    //     where: {
-    //         id: paramsId,
-    //         email: true
-    //     }
-    // })
-
-    // if(!userFound) {
-    //     throw new Error('User not found')
-    // }
     
     const userRents = await prisma.rent.findMany({
         where: {
-            userId: paramsId
+            userId: Number(paramsId)
         }
     })
 

@@ -23,7 +23,7 @@ async function rentRoutes(server:FastifyInstance) {
         }
     }, createNewRent)
 
-    server.get('/users/:id/rent', {
+    server.get('/users/:userId/rent', {
         preHandler: [server.authenticate],
         // schema: {
         //     body: $ref('createRent'),
