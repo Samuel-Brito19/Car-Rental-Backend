@@ -8,7 +8,8 @@ const carCore = {
     color: z.string(),
     type: z.string(),
     carChange: z.string(),
-    link: z.string()
+    link: z.string(),
+    price: z.string()
 }
 
 const createCarSchema = z.object({

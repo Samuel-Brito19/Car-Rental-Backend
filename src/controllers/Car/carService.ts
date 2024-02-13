@@ -13,7 +13,8 @@ export async function getCars() {
             color: true,
             type: true,
             carChange: true,
-            link: true
+            link: true,
+            price: true
         }
     })
 }
