@@ -1,20 +1,12 @@
 import { prisma } from "../../database";
 import { carCore } from "./carSchema";
 
-export async function getCars() {
-    
+export async function getCar(id: number) {
+    const paramCarId = id
 
-    return await prisma.car.findMany({
-        select: {
-            id: true,
-            name: true,
-            model: true,
-            doors: true,
-            color: true,
-            type: true,
-            carChange: true,
-            link: true,
-            price: true
+    return await prisma.car.findUnique({
+        where: {
+            id: Number(paramCarId)
         }
     })
 }
