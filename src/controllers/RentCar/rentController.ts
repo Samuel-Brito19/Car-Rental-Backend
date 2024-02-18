@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { createRentSchema } from "./rentSchema";
-import { createRent, getAvailableCarsInInterval, getUserRents } from "./rentService";
+import { createRentSchema, responseRentSchema } from "./rentSchema";
+import { createRent, deleteRent, getAvailableCarsInInterval, getUserRents } from "./rentService";
 
 export async function findAvailableCars(request: FastifyRequest<{Querystring: createRentSchema}>, reply: FastifyReply) {
     
@@ -56,3 +56,18 @@ export async function getRents(request: FastifyRequest<{Params: createRentSchema
 }
 
 
+export async function rentDelete(request: FastifyRequest<{Params: responseRentSchema}>, reply: FastifyReply) {
+    
+    const {id} = request.params
+
+    try {
+        const dRent = await deleteRent(id)
+
+        return reply.code(200).send(dRent)
+    } catch (error) {
+        console.log(error)
+            
+        return reply.code(500).send(error)
+    }
+ 
+}

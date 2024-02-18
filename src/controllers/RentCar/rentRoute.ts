@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { createNewRent, findAvailableCars, getRents } from "./rentController";
+import { createNewRent, findAvailableCars, getRents, rentDelete } from "./rentController";
 import { $ref } from "./rentSchema";
 
 async function rentRoutes(server:FastifyInstance) {
@@ -26,6 +26,10 @@ async function rentRoutes(server:FastifyInstance) {
     server.get('/users/:userId/rent', {
         preHandler: [server.authenticate],
     }, getRents)
+
+    server.delete('/users/:userId/rent/:id', {
+        preHandler: [server.authenticate],
+    }, rentDelete)
 }
 
 export default rentRoutes

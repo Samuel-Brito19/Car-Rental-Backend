@@ -85,3 +85,16 @@ export async function getUserRents(id : number) {
 
     return userRents
 }
+
+export async function deleteRent(id:number) {
+    
+    const paramsId = id
+
+    const delRent = await prisma.rent.delete({
+        where: {
+            id: Number(paramsId)
+        }
+    })
+
+    return delRent
+}
