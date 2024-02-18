@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { carCore, responseCar } from "./carSchema";
-import { createCar, getCar } from "./carService";
+import { createCar, getCar, sendAllCars } from "./carService";
 
 export async function carRegister(request: FastifyRequest<{
     Body: carCore}>,
@@ -17,22 +17,26 @@ export async function carRegister(request: FastifyRequest<{
             
             return reply.code(500).send(error)
         }
-    }
+}
 
-    export async function findCar(request: FastifyRequest<{
-        Params: responseCar}>,
-        reply: FastifyReply) {
+export async function findCar(request: FastifyRequest<{
+    Params: responseCar}>,
+    reply: FastifyReply) {
     
-            const {id} = request.params
+        const {id} = request.params
     
-            try {
-                const car = await getCar(id)
+        try {
+            const car = await getCar(id)
     
-                return reply.code(200).send(car)
-            } catch (error) {
-                console.log(error)
+            return reply.code(200).send(car)
+        } catch (error) {
+            console.log(error)
                 
-                return reply.code(500).send(error)
-            }
+            return reply.code(500).send(error)
         }
-    
+}
+
+export async function getCarsHandler() {
+    const cars = await sendAllCars()
+    return cars
+}

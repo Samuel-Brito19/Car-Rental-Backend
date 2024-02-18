@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { $ref } from "./carSchema";
-import { carRegister, findCar } from "./carController";
+import { carRegister, findCar, getCarsHandler } from "./carController";
 
 async function carRoutes(server:FastifyInstance) {
     
@@ -8,6 +8,11 @@ async function carRoutes(server:FastifyInstance) {
         preHandler: [server.authenticate],
         
     }, findCar)
+
+    server.get('/', {
+        preHandler: [server.authenticate],
+        
+    }, getCarsHandler)
 
     server.post('/', {
         preHandler: [server.authenticate],
