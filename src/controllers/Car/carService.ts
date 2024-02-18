@@ -19,3 +19,21 @@ export async function createCar(params: carCore) {
 
     return car
 }
+
+export async function sendAllCars() {
+
+    return await prisma.car.findMany({
+        select: {
+            id: true,
+            name: true,
+            model: true,
+            doors: true,
+            color: true,
+            type: true,
+            carChange: true,
+            link: true,
+            price: true
+        }
+    })
+    
+}
