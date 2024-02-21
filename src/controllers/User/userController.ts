@@ -45,11 +45,18 @@ export async function loginHandler(request: FastifyRequest<{
     }
 
     if(await validPassword) {
-        return {accessToken: request.jwt.sign({
+        const accessToken = request.jwt.sign({
             id: user?.id
         },{
             expiresIn: '7d'
-        })}
+        })
+        return reply.code(200).send({
+            accessToken,
+            user: {
+              id: user?.id,
+              email: user?.email,
+            },
+          });
     }
     return reply.code(401).send({
         message: "Invalid email or password!"
