@@ -80,6 +80,9 @@ export async function getUserRents(id : number) {
     const userRents = await prisma.rent.findMany({
         where: {
             userId: Number(paramsId)
+        },
+        include: {
+            rentedCar: true
         }
     })
 
