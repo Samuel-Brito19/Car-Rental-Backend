@@ -5,7 +5,8 @@ const fastify = buildServer()
 async function main() {
  
     try {
-        await fastify.listen({ port: 3000 })
+        const PORT = process.env.PORT || 3000
+        await fastify.listen({ port: Number(PORT) })
 
         console.log('Server ready at http://localhost:3000')
     } catch (error) {
