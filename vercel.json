@@ -12,7 +12,9 @@
           "src": "/(.*)",
           "dest": "dist/app.js",
           "headers": {
-            "Access-Control-Allow-Origin" : "104.198.14.52"
+            "Access-Control-Allow-Origin" : "*",
+            "Access-Control-Allow-Credentials": "true"
+
           },
           "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
       }
