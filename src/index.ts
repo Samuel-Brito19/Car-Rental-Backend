@@ -25,7 +25,7 @@ function buildServer() {
   })
   
   fastify.register(cors, {
-    origin: '*',
+    origin: 'https://main--bestcarrent.netlify.app',
   })
 
   fastify.register(fjwt, {secret:`${process.env.SECRET_JWT}`})
