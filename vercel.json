@@ -11,13 +11,6 @@
       }
     }
   ],
-  "redirects": [
-    {
-      "source": "/:id",
-      "destination": "dist/app.js",
-      "permanent": false
-    }
-  ],
   "headers": [
     {
       "source": "/api/(.*)",
