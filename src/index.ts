@@ -25,7 +25,7 @@ function buildServer() {
   })
   
   fastify.register(cors, {
-    origin: false,
+    origin: '*',
   })
 
   fastify.register(fjwt, {secret:`${process.env.SECRET_JWT}`})
